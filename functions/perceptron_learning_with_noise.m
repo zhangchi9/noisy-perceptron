@@ -13,7 +13,7 @@ X2 = (p2 * ones(1,m)).*(1 - p2 * ones(1,m)).*X + (p1 * ones(1,m)).*(1 - p1 * one
 w= w1*[-ones(Ninh,1);ones(N-Ninh,1)];
 g=[-ones(1,Ninh),ones(1,N-Ninh)]';
 
-n_epochs = 5*10^5;
+n_epochs = 50*10^5;
 routmin = 1000000;
 %rout_perceptron = nan(1,round(n_epochs/sample_interval));
 %w_iteration = nan(N,round(n_epochs/sample_interval));

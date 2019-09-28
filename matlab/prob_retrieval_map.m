@@ -3,18 +3,13 @@ rin_range_ind =  -2:-0.5:-12;
 a_range = [0.1,5:5:100];
 trial_range = [1:100];
 
-noise_added = [0.1];
+noise_added = [40];
 
 retrieval_prob =  nan(length(rin_range_ind),length(a_range),length(noise_added));
 retrieval_length =  nan(length(rin_range_ind),length(a_range),length(noise_added));
 rout =  nan(length(rin_range_ind),length(a_range),length(noise_added));
 
-RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
-scratch_dir = ['/home/zhang.chi9/matlabtmp/', num2str(randi(10^9))];
-mkdir(scratch_dir);
-pc = parcluster('local');
-pc.JobStorageLocation = scratch_dir;
-parpool(pc,pc.NumWorkers);
+create_parpool()
 parfor i = 1:length(rin_range_ind)
     tmp = nan(length(a_range),length(noise_added));
     tmp2 = nan(length(a_range),length(noise_added));
@@ -30,7 +25,7 @@ parfor i = 1:length(rin_range_ind)
     rout(i,:,:) = tmp3;
 end
 delete(gcp)
-save retrieval_prob_length_map_load_at_numerical_capacity_no_noise.mat
+save retrieval_prob_length_map_load_at_numerical_capacity_noise_40.mat
 end
 
 function [prob,length_retrieval,rout] = retrieval_intrinsic_and_pre(rin,a,trial_num_range,noise)
@@ -39,7 +34,7 @@ retrieval_prob = nan(length(trial_num_range),1);
 rout_j = nan(length(trial_num_range),1);
 for j = 1:length(trial_num_range)
     trial_num = trial_num_range(j);
-    fname = ['/home/zhang.chi9/research/logscale//network_load_at_numerical_capacity/rin_',num2str(rin),'a_',num2str(a),'TrialNum_',num2str(trial_num),'.mat'];
+    fname = ['/home/zhang.chi9/research/logscale/data/network_load_at_numerical_capacity/rin_',num2str(rin),'a_',num2str(a),'TrialNum_',num2str(trial_num),'.mat'];
     if isfile(fname)
         load(fname)
         nruns = 1000;
