@@ -3,29 +3,27 @@ function perceptron_sub_prob(N,alpha)
 addpath('/home/zhang.chi9/research/logscale/code/functions')
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
 
-
 a = 40;
 rj = 2^-6;
 rout = rj;
 f = 0.2;
-fout = f;
 n_trials = 200;
 
-p1 = rj/2/(1-f)*ones(N,1);
-p2 = (1-f)*p1/f;
-m = round(alpha*N);
-X =rand(N,m+1)<f; %Input patterns
-XX = X(:,1:end-1);
+m = round(alpha*N*0.1872);
 
 W = nan(N,n_trials);
-routmin = nan(1,N);
+routmin = nan(1,n_trials);
 
-create_parpool
+create_parpool()
 parfor i=1:n_trials
     i
-    Xp = 2*X(i,2:end)-1;
-    [W(:,i),routmin(i)] = perceptron_learning_with_noise(XX,Xp,f,rj,a,rout);
+    X = rand(N,m)<f; %Input patterns
+    Xp = 2*(rand(1,m)<f)-1;
+    while sum(Xp==-1) == m
+        Xp = 2*(rand(1,m)<f)-1;
+    end
+    [W(:,i),routmin(i)] = perceptron_learning_with_noise(X,Xp,f,rj,a,rout);
 end
 delete(gcp)
-save(sprintf('/home/zhang.chi9/research/logscale/data/perceptron_suc_prob/N_%d_alpha_%f.mat',N,alpha))
+save(sprintf('/scratch/zhang.chi9/perceptron/data/perceptron_suc_prob/N_%d_alpha_%f.mat',N,alpha))
 
