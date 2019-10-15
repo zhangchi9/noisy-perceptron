@@ -3,11 +3,12 @@
 
 function fmincon_generate_network2(rj_ind,a,N)
 
+addpath('/home/zhang.chi9/research/logscale/code/functions')
 
 rin_range = -2:-0.5:-12;
 a_range = [0.1,5:5:100];
 
-load('m_capacity.mat')
+load('/home/zhang.chi9/research/logscale/results/m_capacity.mat')
 
 m = floor(m_capacity(find(rj_ind == rin_range),find(a == a_range))/400*N);
 
@@ -33,11 +34,7 @@ for TrialNum = 1 : maxTrial
     epsilonsum = nan(1,N);
     exitflag = nan(1,N);
     
-    scratch_dir = ['/home/zhang.chi9/matlabtmp/', num2str(randi(10^9))];
-    mkdir(scratch_dir);
-    pc = parcluster('local');
-    pc.JobStorageLocation = scratch_dir;
-    parpool(pc,pc.NumWorkers);
+    create_parpool()
     parfor i=1:N
         i
         Xp = 2*X(i,2:end)-1;
@@ -52,13 +49,13 @@ end
 end
 
 function filename = filename_check(rj_ind,a,TrialNum,N)
-filename = ['/home/zhang.chi9/research/logscale/network_different_size/rin_',num2str(rj_ind),'a_',num2str(a),'TrialNum_' num2str(TrialNum),'N_',num2str(N),'.mat'];
+filename = ['/home/zhang.chi9/research/logscale/data/network_load_at_numerical_capacity/rin_',num2str(rj_ind),'a_',num2str(a),'TrialNum_' num2str(TrialNum),'N_',num2str(N),'.mat'];
 while isfile(filename)
     TrialNum = TrialNum + 1;
     if TrialNum > 100
         error('100 network has generated')
     end
-    filename = ['/home/zhang.chi9/research/logscale/network_different_size/rin_',num2str(rj_ind),'a_',num2str(a),'TrialNum_' num2str(TrialNum),'N_',num2str(N),'.mat'];
+    filename = ['/home/zhang.chi9/research/logscale/data/network_load_at_numerical_capacity/rin_',num2str(rj_ind),'a_',num2str(a),'TrialNum_' num2str(TrialNum),'N_',num2str(N),'.mat'];
 end
 end
 

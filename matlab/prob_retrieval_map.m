@@ -1,27 +1,23 @@
 function prob_retrieval_map()
+addpath('/home/zhang.chi9/research/logscale/code/functions')
 rin_range_ind =  -2:-0.5:-12;
 a_range = [0.1,5:5:100];
 trial_range = [1:100];
 
-noise_added = [0.1];
+noise_added = [0.1,5:5:100];
 
 retrieval_prob =  nan(length(rin_range_ind),length(a_range),length(noise_added));
 retrieval_length =  nan(length(rin_range_ind),length(a_range),length(noise_added));
 rout =  nan(length(rin_range_ind),length(a_range),length(noise_added));
 
-RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
-scratch_dir = ['/home/zhang.chi9/matlabtmp/', num2str(randi(10^9))];
-mkdir(scratch_dir);
-pc = parcluster('local');
-pc.JobStorageLocation = scratch_dir;
-parpool(pc,pc.NumWorkers);
+create_parpool()
 parfor i = 1:length(rin_range_ind)
     tmp = nan(length(a_range),length(noise_added));
     tmp2 = nan(length(a_range),length(noise_added));
     tmp3 = nan(length(a_range),length(noise_added));
     for j = 1:length(a_range)
-        [rin_range_ind(i),a_range(j)]
         for k = 1:length(noise_added)
+            [rin_range_ind(i),a_range(j),noise_added(k)]
             [tmp(j,k),tmp2(j,k),tmp3(j,k)] =  retrieval_intrinsic_and_pre(rin_range_ind(i),a_range(j),trial_range,noise_added(k));
         end
     end
@@ -30,7 +26,7 @@ parfor i = 1:length(rin_range_ind)
     rout(i,:,:) = tmp3;
 end
 delete(gcp)
-save retrieval_prob_length_map_load_at_numerical_capacity_no_noise.mat
+save(['/home/zhang.chi9/research/logscale/results/retrieval_prob_length_map_load_at_numerical_capacity_noise_all.mat'])
 end
 
 function [prob,length_retrieval,rout] = retrieval_intrinsic_and_pre(rin,a,trial_num_range,noise)
@@ -39,7 +35,7 @@ retrieval_prob = nan(length(trial_num_range),1);
 rout_j = nan(length(trial_num_range),1);
 for j = 1:length(trial_num_range)
     trial_num = trial_num_range(j);
-    fname = ['/home/zhang.chi9/research/logscale//network_load_at_numerical_capacity/rin_',num2str(rin),'a_',num2str(a),'TrialNum_',num2str(trial_num),'.mat'];
+    fname = ['/scratch/zhang.chi9/perceptron/data/network_load_at_numerical_capacity/rin_',num2str(rin),'a_',num2str(a),'TrialNum_',num2str(trial_num),'.mat'];
     if isfile(fname)
         load(fname)
         nruns = 1000;
