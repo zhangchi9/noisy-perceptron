@@ -1,5 +1,5 @@
-
-N = 100000000;
+function cover_theoretical()
+N = 1000;
 m_max=2.5*N;
 C=zeros(1,m_max);
 P=zeros(1,m_max);
