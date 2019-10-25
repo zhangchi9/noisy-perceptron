@@ -1,13 +1,13 @@
 function [Pcon_inh,Pcon_exc,CV_inh,CV_exc] = get_structure_different_size(file_obj,save_filename)
 
-filename = {file_obj.name};
+filename_list = {file_obj.name};
 folder = {file_obj.folder};
 W_all = [];
 thinh=120;
 thexc = 120;
 
-for i = 1:length(filename)
-    load([folder{i},'/',filename{i}])
+for i = 1:length(filename_list)
+    load([folder{i},'/',filename_list{i}])
     W_all = [W_all,W];
 end
 

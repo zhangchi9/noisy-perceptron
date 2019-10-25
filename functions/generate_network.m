@@ -3,30 +3,35 @@
 
 function generate_network(N,rj_ind,beta_post,model,savepath)
 
-
-rin_range = -2:-0.5:-12;
-beta_post_range = [0.1,5:5:100];
-
-load('m_capacity.mat')
-
-m = floor(m_capacity(find(rj_ind == rin_range),find(beta_post == beta_post_range))/400*N);
-
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
 
+c = containers.Map;
+% c('perceptron_20') = 1;
+% c('fmincon_20') = 1;
+c('perceptron_200') = 0.1243;
+c('perceptron_400') = 0.1354;
+c('perceptron_800') = 0.1466;
+c('fmincon_200') = 0.1492;
+c('fmincon_400') = 0.1639;
+c('fmincon_800') = 0.1764;
+
+m = round(c([model,'_',num2str(N)])*N);
+
 rj = 2^rj_ind;
-%N = 200;
 rout = rj;
 f = 0.2;
-fout = f;
-p1 = rj/2/(1-f)*ones(N,1);
-p2 = (1-f)*p1/f;
 
 maxTrial = 100;
-filename_check(rj_ind,beta_post,maxTrial,N)
+filename_check(savepath,model,rj_ind,beta_post,1,N)
 
 for TrialNum = 1 : maxTrial
     
     X =rand(N,m+1)<f; %Input patterns
+    
+    while any(mean(X,2) == 0)
+        X =rand(N,m+1)<f;
+    end
+    
     XX = X(:,1:end-1);
     
     W = nan(N,N);
@@ -37,9 +42,9 @@ for TrialNum = 1 : maxTrial
     parfor i=1:N
         i
         Xp = 2*X(i,2:end)-1;
-        [W(:,i),epsilonsum(i),exitflag(i)] = numerical_solution(XX,Xp,f,rj,beta_post,rout,model)
+        [W(:,i),epsilonsum(i),exitflag(i)] = numerical_solution(XX,Xp,f,rj,beta_post,rout,model);
     end
     delete(gcp)
-    save(filename_check(savepath,rj_ind,beta_post,TrialNum,N))
+    save(filename_check(savepath,model,rj_ind,beta_post,TrialNum,N))
 end
 end

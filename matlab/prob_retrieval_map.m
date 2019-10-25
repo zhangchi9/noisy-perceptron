@@ -78,6 +78,3 @@ rout = nanmean(rout_j);
 prob = nanmean(retrieval_prob);
 length_retrieval = nanmean(len_retrieval_ave);
 end
-
-
-

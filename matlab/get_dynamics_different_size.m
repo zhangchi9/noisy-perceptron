@@ -1,15 +1,15 @@
 function [CV_ISI_mean,CV_ISI_mean2,SPKS_COR_mean,COR_I_mean] = get_dynamics_different_size(file_obj,save_filename)
 
-filename = {file_obj.name};
+filename_list = {file_obj.name};
 folder = {file_obj.folder};
 
-CV_ISI = nan(1,length(filename));
-CV_ISI2 = nan(1,length(filename));
-SPKS_COR = nan(1,length(filename));
-COR_I = nan(1,length(filename));
+CV_ISI = nan(1,length(filename_list));
+CV_ISI2 = nan(1,length(filename_list));
+SPKS_COR = nan(1,length(filename_list));
+COR_I = nan(1,length(filename_list));
 
-for i = 1:length(filename)
-    load([folder{i},'/',filename{i}])
+for i = 1:length(filename_list)
+    load([folder{i},'/',filename_list{i}])
     
     n_run = 100;
     SPKS_COR_j = nan(1,n_run);
@@ -18,7 +18,7 @@ for i = 1:length(filename)
     CV_ISI_j2 = nan(1,n_run);
     for j = 1 : n_run
         [i,j]
-        [CV_ISI_all,CV_ISI_all2,SPKS_COR_j(j),~,~,~,COR_I_j(j)] = HammDist(W,a,N);
+        [CV_ISI_all,CV_ISI_all2,SPKS_COR_j(j),~,~,~,COR_I_j(j)] = HammDist(W,beta_post,N);
         CV_ISI_j(j) = nanmean(CV_ISI_all);
         CV_ISI_j2(j) = nanmean(CV_ISI_all2);
     end
