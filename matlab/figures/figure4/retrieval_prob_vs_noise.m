@@ -9,8 +9,8 @@ fout = 0.2;
 
 rin_range = 2.^rin_range_ind;
 
-retrieval_prob = retrieval_prob(9,:,8);
-retrieval_length = retrieval_length(9,:,8); 
+retrieval_prob = retrieval_prob(9,:,7);
+retrieval_length = retrieval_length(9,:,7); 
 
 figure,yyaxis left, plot(a_range,retrieval_prob)
 title('retrieval prob vs. noise')

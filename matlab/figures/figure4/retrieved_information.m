@@ -10,11 +10,11 @@ fout = 0.2;
 
 rin_range = 2.^rin_range_ind;
 
-retrieval_prob = retrieval_prob(:,:,8);
-retrieval_length = retrieval_length(:,:,8);
+retrieval_prob = retrieval_prob(:,:,7);
+retrieval_length = retrieval_length(:,:,7);
 
-Is = fout*(rin_range/2/fout.*log(rin_range/2/fout) + (1-rin_range/2/fout).*log(1-rin_range/2/fout) -log(fout)) + ...
-    (1-fout)*(rin_range/2/(1-fout).*log(rin_range/2/(1-fout)) + (1-rin_range/2/(1-fout)).*log(1-rin_range/2/(1-fout)) -log((1-fout)));
+Is = fout*(rin_range/2/fout.*log2(rin_range/2/fout) + (1-rin_range/2/fout).*log2(1-rin_range/2/fout) -log2(fout)) + ...
+    (1-fout)*(rin_range/2/(1-fout).*log2(rin_range/2/(1-fout)) + (1-rin_range/2/(1-fout)).*log2(1-rin_range/2/(1-fout)) -log2((1-fout)));
 I = capacity.* (Is'*ones(1,length(a_range)));
 
 rin_ind_range = (log2(rin_range));
@@ -49,7 +49,7 @@ caxis([0 1])
 
 figure,imagesc(a_range,rin_ind_range,retrieval_prob.*I)
 hold on 
-[C,h] = contour(a_range,rin_ind_range,retrieval_prob.*I,[0.05 0.05], 'LineColor', 'k','LineStyle','--','LineWidth',2); 
+[C,h] = contour(a_range,rin_ind_range,retrieval_prob.*I,[0.06 0.06], 'LineColor', 'k','LineStyle','--','LineWidth',2); 
 clabel(C,h)
 colorbar 
 axis xy
@@ -59,7 +59,7 @@ yticks(-12:2:-2)
 yticklabels({'2^{-12}','2^{-10}','2^{-8}','2^{-6}','2^{-4}','2^{-2}'})
 title('Information in completely retrieved squences per N^2')
 axis square
-caxis([0 0.07])
+caxis([0 0.1])
 
 
 V = retrieval_length./m_capacity.*I;
@@ -68,7 +68,7 @@ V = retrieval_length./m_capacity.*I;
 
 figure,imagesc(a_range,rin_ind_range,V)
 hold on 
-[C,h] = contour(a_range,rin_ind_range,V,[0.05 0.05], 'LineColor', 'k','LineStyle','--','LineWidth',2); 
+[C,h] = contour(a_range,rin_ind_range,V,[0.06 0.06], 'LineColor', 'k','LineStyle','--','LineWidth',2); 
 clabel(C,h)
 colorbar 
 axis xy
@@ -78,6 +78,6 @@ yticks(-12:2:-2)
 yticklabels({'2^{-12}','2^{-10}','2^{-8}','2^{-6}','2^{-4}','2^{-2}'})
 title('Retrieved sequence information per N^2')
 axis square
-caxis([0 0.07])
+caxis([0 0.1])
 
 
