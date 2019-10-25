@@ -4,9 +4,11 @@
 % w: L1 norm, finh: inhibitory neuron percentage
 % All the probability are independent of j
 
-function [capacity,exitflag,Pcon,CV,Jmean,PropDensinh] = theoretical_solution_heter(rou,beta,rin,rout,f)
+function [capacity,exitflag,Pcon,CV,Jmean,PropDensinh] = theoretical_solution_heter(rou,beta,rin,rout,f,N)
 
-N = 1000;
+if nargin == 5
+    N = 1000;
+end
 %f = 0.2;
 fout = 0.2;
 w = 70;

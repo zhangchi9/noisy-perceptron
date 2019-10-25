@@ -5,11 +5,11 @@ rin = -6;
 a = 40;
 loadfac = [1.5:-0.1:0.5];
 prob_learning = nan(3,length(loadfac)+3,3);
-N = [200, 400, 800];
+N = [200, 400 800];
 addpath('/home/chi/Dropbox/Research/Project_Perceptron/code/functions')
 for i = 1 : length(N)
         for k = 1:length(loadfac)
-            filename = ['N_',num2str(N(i)),'_rj_',num2str(rin),'_a_',num2str(a),'_loadfac_',num2str(loadfac(k)),'.mat'];
+            filename = ['/home/chi/Dropbox/Research/Project_Perceptron/data/figure1data/N_',num2str(N(i)),'_rj_',num2str(rin),'_a_',num2str(a),'_loadfac_',num2str(loadfac(k)),'.mat'];
             if isfile(filename)
                 N(i)
                 file_variable = load(filename);
