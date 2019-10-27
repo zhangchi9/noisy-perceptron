@@ -18,6 +18,9 @@ for i = 1:length(filename_list)
     CV_ISI_j2 = nan(1,n_run);
     for j = 1 : n_run
         [i,j]
+        if exist('a','var')
+            beta_post = a;
+        end
         [CV_ISI_all,CV_ISI_all2,SPKS_COR_j(j),~,~,~,COR_I_j(j)] = HammDist(W,beta_post,N);
         CV_ISI_j(j) = nanmean(CV_ISI_all);
         CV_ISI_j2(j) = nanmean(CV_ISI_all2);

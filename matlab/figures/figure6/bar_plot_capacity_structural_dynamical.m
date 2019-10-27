@@ -51,8 +51,8 @@ comp_retrieval_info = fmincon200(1)*0.6109*r.prob;
 retrieval_info = fmincon200(1)*0.6109*r.length_retrieval_fraction;
 fmincon200(2:12) = [r.prob;r.length_retrieval_fraction;comp_retrieval_info;retrieval_info;s.Pcon_inh;s.Pcon_exc;s.CV_inh;s.CV_exc;d.CV_ISI_mean2;d.SPKS_COR_mean;d.COR_I_mean];
 
-s = load('structures_network_different_size_N_400.mat');
-d = load('dynamics_network_different_size_N_400.mat');
+s = load('/home/chi/Dropbox/Research/Project_Perceptron/results/fmincon_400_structures.mat');
+d = load('/home/chi/Dropbox/Research/Project_Perceptron/results/fmincon_400_dynamics.mat');
 r = load('/home/chi/Dropbox/Research/Project_Perceptron/results/fmincon_400_retrieval.mat');
 comp_retrieval_info = fmincon400(1)*0.6109*r.prob;
 retrieval_info = fmincon400(1)*0.6109*r.length_retrieval_fraction;

@@ -4,7 +4,7 @@ cd /scratch/zhang.chi9/perceptron/data/tmp_N_800/
 
 model = {'perceptron','fmincon'};
 
-network_number_range = 6:10;
+network_number_range = 11:20;
 
 W_all = nan(800,800);
 
