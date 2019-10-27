@@ -78,19 +78,19 @@ ylim([0 70])
 figure
 retrieval_prob_tmp = retrieval_prob(:,:,1);
 plot(capacity(:),retrieval_prob_tmp(:),'o','color','r')
-xlim([0 0.5])
+xlim([0 0.6])
 axis square
 
 figure
 retrieval_prob_tmp = retrieval_prob(:,:,7);
 plot(capacity(:),retrieval_prob_tmp(:),'o','color','b')
-xlim([0 0.5])
+xlim([0 0.6])
 axis square
 
 figure
 retrieval_prob_tmp = retrieval_prob(:,:,13);
 plot(capacity(:),retrieval_prob_tmp(:),'o','color','k')
-xlim([0 0.5])
+xlim([0 0.6])
 axis square
 %legend({'retrieval noise 0','retrieval noise 30','retrieval noise 60'})
 

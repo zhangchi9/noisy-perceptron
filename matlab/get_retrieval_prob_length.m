@@ -38,9 +38,9 @@ for jj = 1:length(filename_list)
     len_retrieval_ave(jj) = mean(len_retrieval);
     
 end
-rout = nanmean(rout_j);
-prob = nanmean(retrieval_prob);
-length_retrieval_fraction = nanmean(len_retrieval_ave)/m;
+prob = retrieval_prob;
+length_retrieval_fraction = len_retrieval_ave/m;
+rout = rout_j;
 if nargin == 3
 save(save_filename)
 end
