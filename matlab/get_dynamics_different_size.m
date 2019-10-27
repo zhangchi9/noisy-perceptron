@@ -1,4 +1,4 @@
-function [CV_ISI_mean,CV_ISI_mean2,SPKS_COR_mean,COR_I_mean] = get_dynamics_different_size(file_obj,save_filename)
+function [CV_ISI,CV_ISI2,SPKS_COR,COR_I] = get_dynamics_different_size(file_obj,save_filename)
 
 filename_list = {file_obj.name};
 folder = {file_obj.folder};
@@ -31,10 +31,10 @@ for i = 1:length(filename_list)
     CV_ISI2(i) = nanmean(CV_ISI_j2);
     
 end
-CV_ISI_mean = nanmean(CV_ISI);
-CV_ISI_mean2 = nanmean(CV_ISI2);
-SPKS_COR_mean = nanmean(SPKS_COR);
-COR_I_mean = nanmean(COR_I);
+% CV_ISI_mean = nanmean(CV_ISI);
+% CV_ISI_mean2 = nanmean(CV_ISI2);
+% SPKS_COR_mean = nanmean(SPKS_COR);
+% COR_I_mean = nanmean(COR_I);
 
 if nargin == 2
 save(save_filename)
