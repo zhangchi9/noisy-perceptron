@@ -36,16 +36,17 @@ options = optimset('Display','off','MaxIter',10^5,'MaxFunEvals',10000,'TolX',10^
 
 S = @(x) [(1-fout)*F(x(1))-fout*F(x(2));...
     
-((1-finh)*F(x(4))+finh*F(x(3)))*(rou^2 + w*beta*(f+Cj))-(Dj*4*(x(1)+x(2))/(Cout1 + Cout2)^2*(fout*E(x(2))+(1-fout)*E(x(1)))/(fout * F(x(2))+(1-fout)*F(x(1))) + Cj)*w^2*((x(3)-x(4))/w/f-(x(3)+x(4)));...
+((1-finh)*F(x(4))+finh*F(x(3)))*(rou^2 + w*beta*f)-(Dj*4*(x(1)+x(2))/(Cout1 + Cout2)^2*(fout*E(x(2))+(1-fout)*E(x(1)))/(fout * F(x(2))+(1-fout)*F(x(1))) + Cj)*w^2*((x(3)-x(4))/w/f-(x(3)+x(4)));...
 
-((1-finh)*F(x(4))-finh*F(x(3)))*(rou^2 + w*beta*(f+Cj))-(Dj*4*(x(1)+x(2))/(Cout1 + Cout2)^2*(fout*E(x(2))+(1-fout)*E(x(1)))/(fout * F(x(2))+(1-fout)*F(x(1))) + Cj)*w*((x(3)-x(4))/w/f-(x(3)+x(4)))/f;...
+((1-finh)*F(x(4))-finh*F(x(3)))*(rou^2 + w*beta*f)-(Dj*4*(x(1)+x(2))/(Cout1 + Cout2)^2*(fout*E(x(2))+(1-fout)*E(x(1)))/(fout * F(x(2))+(1-fout)*F(x(1))) + Cj)*w*((x(3)-x(4))/w/f-(x(3)+x(4)))/f;...
 
-((1-finh)*D(x(4))+finh*D(x(3)))*(rou^2 + w*beta*(f+Cj))*(2*Dj*(x(1)+x(2))^2/(Cout1 + Cout2)^2 - Cj)-(Dj*4*(x(1)+x(2))/(Cout1 + Cout2)^2*(fout*E(x(2))+(1-fout)*E(x(1)))/(fout * F(x(2))+(1-fout)*F(x(1))) + Cj)^2*w^2*((x(3)-x(4))/w/f-(x(3)+x(4)))^2/2];
+((1-finh)*D(x(4))+finh*D(x(3)))*(rou^2 + w*beta*f)*(2*Dj*(x(1)+x(2))^2/(Cout1 + Cout2)^2 - Cj)-(Dj*4*(x(1)+x(2))/(Cout1 + Cout2)^2*(fout*E(x(2))+(1-fout)*E(x(1)))/(fout * F(x(2))+(1-fout)*F(x(1))) + Cj)^2*w^2*((x(3)-x(4))/w/f-(x(3)+x(4)))^2/2];
 
 
-for j = 1: 5000
+for j = 1: 500
     j
-    x0 = [0.1 1.5 0.5 -0.5]+0.1.*rand(1,4);
+    %x0 = -[0.1 1.5 0.5 -0.5]+0.1.*rand(1,4);
+    x0 = 2*rand(1,4)-1;
     [x,~,exitflag] = fsolve(S, x0, options);
     if exitflag == 1 && ((x(3)-x(4))/w/f-(x(3)+x(4)))*(x(1) + x(2))>0 && (x(1) + x(2))/(Cout1 + Cout2)>=0
         break;

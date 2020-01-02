@@ -65,8 +65,8 @@ Vq = interp2(a_range,rin_range_ind,V,Xq,Yq);
 retrievable_infor_max(i) = b2;
 end
 
-figure,plot(noise_added,compelete_infor_max)
-hold on, plot(noise_added,retrievable_infor_max)
+figure,plot(noise_added,compelete_infor_max,'-o')
+hold on, plot(noise_added,retrievable_infor_max,'-o')
 plot(noise_added,noise_added,'k')
 axis square
 xlabel('noise in retrieval')

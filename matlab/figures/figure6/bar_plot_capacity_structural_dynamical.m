@@ -90,6 +90,8 @@ hold on;
 [ngroups,nbars] = size(data);
 % Calculating the width for each bar group
 groupwidth = min(0.8, nbars/(nbars + 1.5));
+xlim([0,13])
+ylim([0 1.15])
 % Set the position of each error bar in the centre of the main bar
 % Based on barweb.m by Bolu Ajiboye from MATLAB File Exchange
  

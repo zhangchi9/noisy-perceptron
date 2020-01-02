@@ -1,4 +1,4 @@
-function [w_return,routmin] = perceptron_learning(X,Xp,f,rj,beta_post,rout)
+function [w,rout_perceptron] = perceptron_learning_keep_last_solution(X,Xp,f,rj,beta_post)
 
 [N,m] = size(X);
 Ninh = round(0.2*N);
@@ -14,7 +14,6 @@ w= w1*[-ones(Ninh,1);ones(N-Ninh,1)];
 g=[-ones(1,Ninh),ones(1,N-Ninh)]';
 
 n_epochs = 50*10^5;
-routmin = 1000000;
 %rout_perceptron = nan(1,round(n_epochs/sample_interval));
 %w_iteration = nan(N,round(n_epochs/sample_interval));
 % Std_W = 1/N.*sqrt(N*int_noise^2 + sum(( W.^2 * ones(1,m)).*X2));
@@ -45,14 +44,5 @@ for epoch = 1: n_epochs
     Mean = Xp.*( w'*X1/N - 1);
     p1p2 = 0.5*(1-erf(Mean./Std./sqrt(2)));
     rout_perceptron = (1-f)*max(p1p2(Xp==-1)) + f*max(p1p2(Xp==1));
-    if rout_perceptron <= rout
-        routmin = rout_perceptron;
-        w_return = w;
-        break
-    elseif min(routmin,rout_perceptron) < routmin
-        routmin = rout_perceptron;
-        w_return = w;
-    end
-    
 end
 end

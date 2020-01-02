@@ -38,21 +38,6 @@ axis square
 caxis([0.1 0.2])
 
 
-load('../figure4/retrieval_prob_length_map_load85_no_noise.mat')
-figure,imagesc(a_range,rin_ind_range,retrieval_prob.*I)
-hold on 
-[C,h] = contour(a_range,rin_ind_range,retrieval_prob.*I,[0.05 0.1], 'LineColor', 'k','LineStyle','--','LineWidth',2); 
-clabel(C,h)
-colorbar 
-axis xy
-xlabel('Postsynaptic noise strength, \beta_{post}')
-ylabel('Spiking error probability, r ')
-yticks(-12:2:-2)
-yticklabels({'2^{-12}','2^{-10}','2^{-8}','2^{-6}','2^{-4}','2^{-2}'})
-title('Information')
-axis square
-caxis([0 0.15])
-
 figure,imagesc(a_range,rin_ind_range,capacity)
 hold on 
 [C,h] = contour(a_range,rin_ind_range,capacity,[0.3 0.3], 'LineColor', 'k','LineStyle','--','LineWidth',2); 
