@@ -8,7 +8,8 @@ rout = rj;
 f = 0.2;
 n_trials = 200;
 
-m = round(alpha*N*0.1872);
+theoreticalCapacity = theoretical_solution(int_noise,0,rj,f);
+m = round(alpha*N*theoreticalCapacity);
 
 W = nan(N,n_trials);
 routmin = nan(1,n_trials);
